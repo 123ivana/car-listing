@@ -1,0 +1,23 @@
+spring:
+  kafka:
+    producer:
+      key-serializer:  org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: ${KAFKA_HOST:localhost:29092}
+    consumer:
+      group-id: car-listing-consumer
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+
+carlListingProducer:
+  kafka:
+    topics:
+      carListing:
+        action:
+          create:
+            name: car-listing.create
+          update:
+            name: car-listing.update
+          delete:
+            name: car-listing.delete
