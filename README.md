@@ -49,3 +49,46 @@ The configuration is done by environments variables.
 | KAFKA_HOST                 | Specify kafka host          |                | `localhost:9092` | 
 | ELASTICSEARCH_HOST         | Specify elasticsearch host  |                | `localhost:9200` |
 
+### Usage 
+
+#### car-listing-producer 
+Service used for creating, updating and deleting car listings. 
+
+Create Car Listing
+```shell
+curl --location --request POST 'http://localhost:8080/api/v1/car-listing' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"make": "BMW",
+"model":"X1",
+"year" : 2010
+}'
+```
+Update Car Listing
+```shell
+curl --location --request PATCH 'http://localhost:8080/api/v1/car-listing' \
+--header 'Content-Type: application/json' \
+--data-raw '{    "id" : "zwJ4booBuhrV60oa169m",
+"make": "BMW",
+"model":"X1",
+"year" : 2011
+}'
+```
+Delete Car Listing
+```shell
+curl --location --request DELETE 'http://localhost:8080/api/v1/car-listing/zwJ4booBuhrV60oa169m' \
+--data-raw ''
+```
+#### car-listing-consumer
+service is used for finding and filtering car listings from elastic search
+Find By Id
+```shell
+
+curl --location --request GET 'http://localhost:8081/api/v1/car-listing/zwJ4booBuhrV60oa169m'
+```
+Filter results
+```shell
+
+curl --location --request GET 'http://localhost:8081/api/v1/car-listing?make=BMW&sortBy=year&pageNo=1&pageSize=2'
+```
+
